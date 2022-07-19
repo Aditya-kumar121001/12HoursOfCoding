@@ -23,3 +23,31 @@ int maximumSumSubarray(int K, vector<int> &Arr , int N){
         return maximum;
     }
 
+2. First negative integer in every window of size K
+//Push all the negative numbers into the queue untill we hit the window size
+//once window size is acheived, maintain the window size and put the first element of the queue to the ans vector and if the size of the queue is 0 push 0 in the 
+  ans vector
+//sliding the window and pop first element from the queue to avoid repetative work
+vector<long long> printFirstNegativeInteger(long long int A[], long long int N, long long int K) {
+    queue<long long> q;
+    vector<long long> ans;
+    long long i = 0,j = 0;
+    
+    while(j<N){
+        if(A[j]<0)
+            q.push(A[j]);
+        if(j-i+1 < K){
+            j++;
+        }
+        else{
+            if(q.empty()) ans.push_back(0);
+            else{
+                ans.push_back(q.front());
+                if(q.front() == A[i])
+                    q.pop();
+            }
+            i++;j++;
+        }
+    }
+    return ans;
+}
