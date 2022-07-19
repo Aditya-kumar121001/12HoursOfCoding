@@ -1,7 +1,24 @@
 //Sliding Window technique is used to convert nested loops to single loop
 //How to indetify => Opertaion -> sub array/sub string -> condition
 
-1. Max sum subarray of size k
+1.Maximum Average subarray 
+double findMaxAverage(vector<int>& nums, int k) {
+        double maxAvg = INT_MIN;
+        double currsum=0;
+        for(int i=0; i<k; i++){
+            currsum += nums[i];
+        }
+        maxAvg = max(maxAvg, currsum/k);
+        
+        for(int i=k; i<nums.size(); i++){
+            currsum -= nums[i-k];
+            currsum += nums[i];
+            maxAvg = max(maxAvg, currsum/k);
+        }
+        return maxAvg;
+    }
+
+2. Max sum subarray of size k
 //calculate sum from Arr[0] to k to fix the window size then maintain the window size to K and obtain the maximum subarray
 int maximumSumSubarray(int K, vector<int> &Arr , int N){
         int i=0,j=0;
@@ -23,7 +40,7 @@ int maximumSumSubarray(int K, vector<int> &Arr , int N){
         return maximum;
     }
 
-2. First negative integer in every window of size K
+3. First negative integer in every window of size K
 //Push all the negative numbers into the queue untill we hit the window size
 //once window size is acheived, maintain the window size and put the first element of the queue to the ans vector and if the size of the queue is 0 push 0 in the 
   ans vector
@@ -52,7 +69,7 @@ vector<long long> printFirstNegativeInteger(long long int A[], long long int N, 
     return ans;
 }
 
-3.Count Occurences of Anagrams
+4.Count Occurences of Anagrams
 //Create a map and store the occurence of each character in string and a count=map.size() variable to prevent the map traversal and window size equal to p.size()
 //if arr[j] is present in str reduce the count of that variable in the map oncethe count of any variable is 0 reduce the count
 //if count ==0 increment the answer
