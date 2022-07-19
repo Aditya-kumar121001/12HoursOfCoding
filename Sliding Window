@@ -1,0 +1,25 @@
+//Sliding Window technique is used to convert nested loops to single loop
+//How to indetify => Opertaion -> sub array/sub string -> condition
+
+1. Max sum subarray of size k
+//calculate sum from Arr[0] to k to fix the window size then maintain the window size to K and obtain the maximum subarray
+int maximumSumSubarray(int K, vector<int> &Arr , int N){
+        int i=0,j=0;
+        int maximum=INT_MIN;
+        
+        int sum=0;
+        while(j<N){
+            sum = sum+Arr[j];
+            if(j-i+1 < K){
+                j++;
+            }
+            else if(j-i+1 == K){
+                maximum = max(maximum,sum);
+                sum = sum-Arr[i];
+                i++;
+                j++;
+            }
+        }
+        return maximum;
+    }
+
