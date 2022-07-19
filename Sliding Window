@@ -51,3 +51,46 @@ vector<long long> printFirstNegativeInteger(long long int A[], long long int N, 
     }
     return ans;
 }
+
+3.Count Occurences of Anagrams
+//Create a map and store the occurence of each character in string and a count=map.size() variable to prevent the map traversal and window size equal to p.size()
+//if arr[j] is present in str reduce the count of that variable in the map oncethe count of any variable is 0 reduce the count
+//if count ==0 increment the answer
+//now slide the window by increment of arr[i] and i++,j++
+int search(string p, string s){
+    int i=0,j=0;
+    int k=p.size();
+    unordered_map<char, int> mp;
+    int ans = 0;
+        
+    for (auto &x : p){
+         mp[x]++;
+    }
+        
+    int count = mp.size();
+        
+	while(j < s.size()){
+	    if (mp.find(s[j]) != mp.end()){
+            mp[s[j]]--;
+            if (mp[s[j]] == 0){
+                count--;
+            }
+        }
+        if (j-i+1 < k) j++;
+
+        else if (j-i+1 == k){
+            if (count == 0){
+                ans++;
+            }
+            if (mp.find(s[i]) != mp.end()){
+                mp[s[i]]++;
+                if (mp[s[i]] == 1){
+                    count++;
+                }
+            }
+            i++;
+            j++;
+        }
+    }
+    return ans;
+}
